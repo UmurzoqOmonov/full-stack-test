@@ -48,7 +48,7 @@ router.post(
     .trim()
     .notEmpty()
     .withMessage("Email bo'sh bo'lishi mumkin emas")
-    .isLength({ min: 13 })
+    .isLength({ min: 10 })
     .withMessage("Email eng kamida 13 ta belgidan iborat bo'lishi kerak"),
   authController.register
 );

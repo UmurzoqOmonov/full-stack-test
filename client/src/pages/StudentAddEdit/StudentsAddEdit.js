@@ -53,7 +53,7 @@ function StudentsAddEdit() {
   useEffect(() => {
     getCourses();
     if (isUpdate) {
-      studentById();
+      studentById(params.id);
     }
   }, []);
   const navigate = useNavigate();
@@ -66,10 +66,8 @@ function StudentsAddEdit() {
     goBack();
   };
 
-  const studentById = async () => {
-    const res = await axios(
-      `http://localhost:2000/api/v1/students/${params.id}`
-    );
+  const studentById = async (id) => {
+    const res = await axios(`http://localhost:2000/api/v1/students/${id}`);
     reset(res.data.data.byId);
   };
 

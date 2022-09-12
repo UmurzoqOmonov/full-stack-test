@@ -9,13 +9,15 @@ import CourseAddEdit from "./pages/CoursesAddEdit/CourseAddEdit";
 import StudentsAddEdit from "./pages/StudentAddEdit/StudentsAddEdit";
 import "react-toastify/dist/ReactToastify.css";
 import ReactTable from "./components/React-table/React-table";
+import Register from "./pages/register/Register";
 
 function App() {
   return (
     <>
       <ToastContainer />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Register />} />
+        {/* <Route path="/" element={<Home />} /> */}
         {/* <Route path="/" element={<ReactTable />} /> */}
         <Route path="/courses" element={<Courses />} />
         <Route path="/verify/:id" element={<Courses />} />

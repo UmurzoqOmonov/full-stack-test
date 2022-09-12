@@ -18,8 +18,8 @@ const useHttp = (reqFn) => {
         toast.success(data.message);
       }
     } catch (err) {
-      // const error = await err.response.error.errors;
-      // error.map((e) => toast.error(e.msg));
+      const error = await err.response.data;
+      toast.error(error.message);
     }
     setLoading(false);
   };

@@ -5,7 +5,7 @@ const devOrProd = process.env.NODE_ENV;
 const db = require("./config/db");
 
 // Tables
-// const Admin = require("./models/Admin");
+const Admin = require("./models/User");
 const Courses = require("./models/Courses");
 const Students = require("./models/Students");
 

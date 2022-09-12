@@ -6,6 +6,7 @@ const courseRouter = require("./routes/courseRouter");
 const studentRouter = require("./routes/studentRouter");
 const authRouter = require("./routes/authRouter");
 const nodemailer = require("nodemailer");
+const authMiddleware = require("./middlewares/authMiddlewares");
 // Create Express App
 const app = express();
 
