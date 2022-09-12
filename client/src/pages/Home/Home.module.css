@@ -1,0 +1,20 @@
+.linksContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4rem 4rem;
+}
+
+.links {
+  font-size: 2rem;
+  padding: 1rem 1.5rem;
+  background-color: rgba(161, 158, 158, 0.776);
+  text-decoration: none;
+  color: rgb(23, 22, 22);
+  border-radius: 0.7rem;
+}
+
+.links:hover {
+  background-color: black;
+  color: white;
+}

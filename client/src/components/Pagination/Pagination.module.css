@@ -1,0 +1,48 @@
+.paginationContainer {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.prev {
+  cursor: pointer;
+}
+
+.next {
+  cursor: pointer;
+}
+
+.next > svg:hover {
+  fill: black;
+}
+
+.prev > svg:hover {
+  fill: black;
+}
+
+.linkPages {
+  display: block;
+  text-decoration: none;
+  color: grey;
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0.5rem;
+}
+
+.linkPages:hover {
+  color: black;
+}
+
+.active {
+  color: black;
+  font-size: 2.2rem;
+  pointer-events: none;
+}
+
+.disabledTrue {
+  pointer-events: none;
+}
+.disabledTrue > svg {
+  fill: rgb(187, 175, 175);
+}
