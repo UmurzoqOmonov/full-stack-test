@@ -16,14 +16,14 @@ export const deleteUsers = async (id) => {
   return res.data;
 };
 
-export const submit = async ({ data, isUpdate, id }) => {
+export const registerSubmit = async ({ data, isUpdate, id }) => {
   const res = await http({
     url: isUpdate
       ? `http://localhost:2000/api/v1/auth/users/${id}`
-      : "http://localhost:2000/api/v1/register",
+      : "http://localhost:2000/api/v1/auth/register",
     method: isUpdate ? "PUT" : "POST",
-    data: data,
+    data,
   });
 
-  return res.data;
+  return res;
 };

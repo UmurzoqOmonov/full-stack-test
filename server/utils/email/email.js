@@ -55,7 +55,7 @@ const sendMailFn = (to, verificationCode, subjectText, next) => {
       <div class="container">
         <h1>${subjectText}</h1>
         <h3>Hi ${to}! This is your vreification code</h3>
-        <div><a href="http://192.168.60.116:3000/verify/${verificationCode}">Verify Link</a></div>
+        <div><a href="http://localhost:3000/verify/${verificationCode}">Verify Link</a></div>
       </div>
     </body>
   </html>

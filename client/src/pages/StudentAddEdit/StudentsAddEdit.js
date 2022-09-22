@@ -1,81 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useNavigate, useParams } from "react-router-dom";
+import React from "react";
 import Layout from "../../components/Layout";
 import styles from "./Student.module.css";
-import axios from "axios";
-import useHttp from "../../hooks/use-http";
-import { submit } from "../api/studentsApi";
-
-const schema = yup.object().shape({
-  firstName: yup
-    .string()
-    .min(3)
-    .max(20)
-    .required("Talabaning ismi bo'sh bo'lishi mumkin emas"),
-  lastName: yup
-    .string()
-    .min(5)
-    .max(25)
-    .required("Talabaning familiyasi bo'sh bo'lishi mumkin emas"),
-  birthYear: yup
-    .string()
-    .min(10)
-    .max(10)
-    .required("Talabaning tug'ilgan sanasi bo'sh bo'lishi mumkin emas"),
-  courseId: yup
-    .number()
-    .positive()
-    .integer()
-    .required(
-      "Talabaning qaysi kursda ta'lim olishi bo'sh bo'lishi mumkin emas"
-    ),
-  // password: yup.string().min(4).max(20).required(),
-  // confirmPassword: yup.string().oneOf([yup.ref("password"), null]),
-});
+import useStudentMutation from "../../hooks/use-student-mutation";
+import { useParams } from "react-router-dom";
 
 function StudentsAddEdit() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
-  const [courses, setCourses] = useState([]);
-  const { send } = useHttp(submit);
   const params = useParams();
   const isUpdate = params.id !== "new";
 
-  useEffect(() => {
-    getCourses();
-    if (isUpdate) {
-      studentById(params.id);
-    }
-  }, []);
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  const onSubmit = async (data) => {
-    await send({ data, isUpdate, id: params.id });
-    goBack();
-  };
-
-  const studentById = async (id) => {
-    const res = await axios(`http://localhost:2000/api/v1/students/${id}`);
-    reset(res.data.data.byId);
-  };
-
-  const getCourses = async () => {
-    const courses = await axios("http://localhost:2000/api/v1/courses");
-    setCourses(courses.data.data.content);
-  };
-
+  const { onSubmit, courses, handleSubmit, errors, register, reset, student } =
+    useStudentMutation({ isUpdate, id: params.id });
+  // if (isUpdate) reset(student);
   return (
     <div>
       <Layout title={isUpdate ? "Update student" : "Add new stydent"}>
@@ -132,11 +67,16 @@ function StudentsAddEdit() {
               {...register("courseId")}
             >
               <option>Courses</option>
-              {courses.map((c) => (
-                <option className={styles.formControl} key={c.id} value={c.id}>
-                  {c.name}
-                </option>
-              ))}
+              {courses &&
+                courses.map((c) => (
+                  <option
+                    className={styles.formControl}
+                    key={c.id}
+                    value={c.id}
+                  >
+                    {c.name}
+                  </option>
+                ))}
             </select>
             <p>{errors.courseId?.message}</p>
           </div>

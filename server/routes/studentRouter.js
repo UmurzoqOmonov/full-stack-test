@@ -63,5 +63,6 @@ router
     studentControllers.updateStudent
   )
   .delete(studentControllers.deleteStudent);
+router.get("/:courseId", studentControllers.getCourseIdStudents);
 
 module.exports = router;

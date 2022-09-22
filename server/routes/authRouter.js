@@ -40,19 +40,19 @@ router.post(
     .trim()
     .notEmpty()
     .withMessage("Telefon raqami bo'sh bo'lishi mumkin emas")
-    .isLength({ min: 13 })
+    .isLength({ min: 12 })
     .withMessage(
-      "Telefon raqami Xato kiritildi. Eng kamida 13 ta belgidan iborat bo'lishi kerak"
+      "Telefon raqami Xato kiritildi. Eng kamida 12 ta belgidan iborat bo'lishi kerak"
     ),
   body("email")
     .trim()
     .notEmpty()
     .withMessage("Email bo'sh bo'lishi mumkin emas")
     .isLength({ min: 10 })
-    .withMessage("Email eng kamida 13 ta belgidan iborat bo'lishi kerak"),
+    .withMessage("Email eng kamida 10 ta belgidan iborat bo'lishi kerak"),
   authController.register
 );
 
-router.get("/verify/:id", authController.verify);
+router.post("/verify/:id", authController.verify);
 
 module.exports = router;

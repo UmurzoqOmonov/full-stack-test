@@ -56,14 +56,16 @@ const User = sequelize.define(
       allowNull: false,
       validate: {
         len: {
-          args: [13],
+          args: [12],
           msg: "Telefon raqami eng kamida 13 ta belgidan iborat bo'lsin",
         },
       },
     },
     verificationCode: {
-      type: DataTypes.UUID,
-      defaultValue: UUIDV4,
+      type: DataTypes.STRING,
+      defaultValue: `${Math.floor(1000 + Math.random() * 9000)}`,
+      // unique: true,
+      // defaultValue: UUIDV4,FOR EMAIL
     },
     isVerify: {
       type: DataTypes.BOOLEAN,

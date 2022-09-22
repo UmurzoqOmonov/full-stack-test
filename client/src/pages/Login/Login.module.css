@@ -1,0 +1,105 @@
+.loginContainer {
+  width: 60%;
+  margin: 4rem auto;
+  padding: 2rem 3.2rem;
+  /* background-color: white; */
+}
+
+.loginForm {
+  width: 60%;
+  margin: 4rem auto;
+  padding: 2rem 3.2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+.loginForm > * {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.loginForm input,
+.loginForm label {
+  width: 100%;
+}
+
+.loginForm > *:nth-child(2) {
+  margin-top: 2.4rem;
+}
+.loginForm label {
+  font-family: MulishBold, sans-serif;
+  display: block;
+  width: inherit;
+  font-size: 1.4rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.03rem;
+  text-transform: uppercase;
+  color: #9fa2b4;
+  margin-bottom: 0.6rem;
+}
+
+.loginForm input {
+  display: block;
+  background: #fcfdfe;
+  outline: none;
+  border: 1px solid black;
+  width: inherit;
+  padding: 1.1rem 0.8rem;
+  border: 1px solid #f0f1f7;
+  border-radius: 0.8rem;
+}
+
+.loginForm input:focus {
+  border-color: blue;
+}
+
+.loginForm input::placeholder {
+  font-family: MulishRegular, sans-serif;
+  font-size: 1.6rem;
+  line-height: 2rem;
+  letter-spacing: 0.03rem;
+  color: #4b506d;
+  opacity: 0.4;
+}
+
+.loginForm input:focus {
+  border-color: rgb(1, 134, 183);
+}
+
+.loginForm button {
+  border: 1px solid transparent;
+  margin-top: 2.4rem;
+  background: #3751ff;
+  box-shadow: 0rem 0.4rem 1.2re rgba(55, 81, 255, 0.24);
+  border-radius: 0.8rem;
+  font-family: MulishSemiBold, sans-serif;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.2rem;
+  color: #ffffff;
+  padding: 1.5rem 2.4rem;
+}
+
+.signUpLink {
+  font-family: MulishSemiBold, sans-serif;
+  font-size: 1.4rem;
+  line-height: 2rem;
+  letter-spacing: 0.02rem;
+  color: #3751ff;
+}
+
+.password {
+  position: relative;
+}
+
+.changeType {
+  position: relative;
+}
+.changeType > div {
+  position: absolute;
+  cursor: pointer;
+  right: 5%;
+  transform: translate(-5%, -120%);
+  display: inline-block;
+}

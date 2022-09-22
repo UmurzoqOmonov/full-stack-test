@@ -1,7 +1,7 @@
 import http from "../../utils/axios-instance";
 
 export const getCourses = async (reqData) => {
-  const res = await http("courses", {
+  const res = await http("/courses", {
     params: { page: reqData.page, size: reqData.size },
   });
   return {

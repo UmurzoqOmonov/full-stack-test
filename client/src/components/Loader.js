@@ -3,11 +3,11 @@ import React, { useState } from "react";
 const override = {
   display: "block",
   margin: "0 auto",
-  borderColor: "blue",
+  borderColor: "rgb(0, 145, 255)",
 };
 
 function Loader({ wait }) {
-  let [color, setColor] = useState("blue");
+  let [color, setColor] = useState("rgb(0, 145, 255)");
   return (
     <div className="sweet-loading">
       <PacmanLoader

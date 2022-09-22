@@ -7,6 +7,7 @@ const catchAsync = require("../utils/catchAsync");
 const jsonWebToken = require("jsonwebtoken");
 const { use, options } = require("../app");
 const sendMailFn = require("../utils/email/email");
+const { sendVerificationSMS } = require("../utils/smsVerify/smsVerify");
 
 const findByUsername = async (username) => {
   const condidate = await Admin.findOne({
@@ -33,6 +34,7 @@ const generateToken = (payload, jwtSecret, options) => {
 };
 
 exports.register = catchAsync(async (req, res, next) => {
+  console.log(req.body);
   const validationError = validationResult(req);
   if (validationError.errors.length > 0) {
     const err = new AppError("Validation error", 400);
@@ -64,19 +66,25 @@ exports.register = catchAsync(async (req, res, next) => {
       404
     );
   }
-  console.log(condidate.verificationCode);
 
-  const mailInfo = sendMailFn(
-    condidate.email,
-    condidate.verificationCode,
-    "We are IT COMPANY",
-    next
-  );
+  const smsMessage = await sendVerificationSMS({
+    to: createAdmin.phoneNumber,
+    vercode: createAdmin.verificationCode,
+    next: "",
+  });
+
+  console.log(smsMessage);
+  // const mailInfo = sendMailFn(
+  //   condidate.email,
+  //   condidate.verificationCode,
+  //   "We are IT COMPANY",
+  //   next
+  // );
 
   res.status(201).json({
     status: "success",
-    message:
-      "Siz muvaffaqiyatli ro'yxatdan o'tdingiz email tarmog'ingiz orqali tekshirish parolini kiriting",
+    message: "Siz muvaffaqiyatli ro'yxatdan o'tdingiz sms code ni kiriting",
+    // "Siz muvaffaqiyatli ro'yxatdan o'tdingiz email tarmog'ingiz orqali tekshirish parolini kiriting",
     errors: null,
     data: {
       createdNewAdmin: {
@@ -87,11 +95,24 @@ exports.register = catchAsync(async (req, res, next) => {
 });
 
 exports.verify = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const verifyCode = req.body.verificationCode;
+  console.log(verifyCode);
+
   const condidate = await Admin.findOne({
     where: {
-      verificationCode: { [Op.eq]: req.params.id },
+      id: { [Op.eq]: id },
     },
   });
+
+  if (condidate.verificationCode !== verifyCode) {
+    return next(
+      new AppError(
+        "Ushbu verificatsiya kodiga tegishli foydalanuvchi topilmadi",
+        404
+      )
+    );
+  }
 
   if (!condidate) {
     return next(
@@ -161,10 +182,10 @@ exports.login = catchAsync(async (req, res, next) => {
     message: "",
     errors: null,
     data: {
-      admin: {
+      user: {
         ...payload,
-        jwt: token,
       },
+      jwt: token,
     },
   });
 });

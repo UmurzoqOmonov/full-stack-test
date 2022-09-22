@@ -3,6 +3,7 @@ const Student = require("../models/Students");
 const pagination = require("../utils/myFreamvorks/pagination");
 const AppError = require("../utils/appError");
 const { validationResult } = require("express-validator");
+const { Op } = require("sequelize");
 
 exports.getAllStudents = catchAsync(async (req, res, next) => {
   const allStudents = await pagination(req.query, Student, {});
@@ -22,9 +23,28 @@ exports.getAllStudents = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.getCourseIdStudents = catchAsync(async (req, res, next) => {
+  const { courseId } = req.params;
+
+  if (!courseId) {
+    return next(new AppError("Course Id kiritilmadi", 400));
+  }
+  const courseIdStudents = await pagination(req.query, Student, {
+    where: { courseId: { [Op.eq]: courseId } },
+  });
+  res.json({
+    status: "success",
+    message: `Course id ${courseId}ga tegishli hamma talabalarining ro'yxati berildi`,
+    error: null,
+    data: { ...courseIdStudents },
+  });
+});
+
 exports.getByIdStudent = catchAsync(async (req, res, next) => {
   const { id } = req.params;
+
   const byId = await Student.findByPk(id);
+
   if (!byId) {
     next(new AppError(`Bu ${id} ID li  Talaba topilmadi`, 404));
   }
