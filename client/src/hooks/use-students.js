@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { deleteStudent, getStudents } from "../pages/api/studentsApi";
 import useHttp from "./use-http";
 

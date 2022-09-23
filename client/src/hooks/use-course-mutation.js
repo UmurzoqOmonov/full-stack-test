@@ -1,7 +1,6 @@
 import useHttp from "./use-http";
 import { submit } from "../pages/api/coursesApi";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";

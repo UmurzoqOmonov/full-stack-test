@@ -1,11 +1,9 @@
 import React from "react";
-import { toast } from "react-toastify";
 import Layout from "../../components/Layout";
 import styles from "./CourseAddEdit.module.css";
 import useCourseMutation from "../../hooks/use-course-mutation";
 function CourseAddEdit() {
-  const { register, errors, handleSubmit, onSubmit, isUpdate } =
-    useCourseMutation();
+  const { register, handleSubmit, onSubmit, isUpdate } = useCourseMutation();
   return (
     <div>
       <Layout title={isUpdate ? "Update course" : "Add new course"}>
