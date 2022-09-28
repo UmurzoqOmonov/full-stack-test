@@ -4,6 +4,7 @@ export const getCourses = async (reqData) => {
   const res = await http("/courses", {
     params: { page: reqData.page, size: reqData.size },
   });
+
   return {
     content: res.data.data.content,
     pagination: res.data.data.pagination,

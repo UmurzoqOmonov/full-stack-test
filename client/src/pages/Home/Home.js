@@ -14,7 +14,7 @@ function Home() {
       <Layout title="Home">
         <div className={styles.linksContainer}>
           <Link
-            to={hasHome ? "/courses" : "/register"}
+            to={hasHome ? "/courses?page=1&size=5" : "/register"}
             className={styles.links}
           >
             {hasHome ? "Courses" : "Register"}
@@ -22,7 +22,10 @@ function Home() {
           <Link to={hasHome ? "/user" : "/admin"} className={styles.links}>
             {hasHome ? "Users" : "I'm Admin"}
           </Link>
-          <Link to={hasHome ? "/students" : "/login"} className={styles.links}>
+          <Link
+            to={hasHome ? "/students?page=1&size=5" : "/login"}
+            className={styles.links}
+          >
             {hasHome ? "Students" : "Login"}
           </Link>
         </div>

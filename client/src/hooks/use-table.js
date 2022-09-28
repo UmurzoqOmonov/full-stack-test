@@ -31,7 +31,7 @@ const useTable = (props, styles) => {
     </tr>
   ));
 
-  return { tableBody, cools, data, url, page, noContent };
+  return { tableBody, cools, data, url, page: props.page, noContent };
 };
 
 export default useTable;

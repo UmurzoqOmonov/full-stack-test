@@ -1,20 +1,22 @@
 const catchAsync = require("../utils/catchAsync");
 const Student = require("../models/Students");
-const pagination = require("../utils/myFreamvorks/pagination");
+
 const AppError = require("../utils/appError");
 const { validationResult } = require("express-validator");
 const { Op } = require("sequelize");
+const QueryBuilder = require("../utils/myFreamvorks/QueryBuilder");
 
 exports.getAllStudents = catchAsync(async (req, res, next) => {
-  const allStudents = await pagination(req.query, Student, {});
-  if (allStudents.pagination.totalPages < req.query.page) {
-    res.json({
-      status: "success",
-      message: "Hamma talabalarining ro'yxati berildi",
-      error: null,
-      data: { content: [], pagination: allStudents.pagination },
-    });
-  }
+  const queryBuilder = new QueryBuilder(req.query);
+
+  queryBuilder
+    .filter()
+    .paginate()
+    .limitFields()
+    .search(["firstName", "lastName"]);
+
+  let allStudents = await Student.findAndCountAll(queryBuilder.queryOptions);
+  allStudents = queryBuilder.createPage(allStudents);
   res.json({
     status: "success",
     message: "Hamma talabalarining ro'yxati berildi",

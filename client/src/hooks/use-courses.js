@@ -1,22 +1,38 @@
 import useHttp from "./use-http";
 import { getCourses, deleteCourse } from "../pages/api/coursesApi";
-import { Link, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const useCourses = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") || 1;
-  const size = searchParams.get("size") || 3;
+  const size = searchParams.get("size") || 5;
+  const search = searchParams.get("search");
   const { send: deletedCourse } = useHttp(deleteCourse);
   const { send, error, loading, data, pagination } = useHttp(getCourses);
   const deletedHandler = async (id) => {
     await deletedCourse(id);
-    send({ page, size });
+    send({ page, size, search });
   };
 
+  const [value, setValue] = useState(null);
   useEffect(() => {
-    send({ page, size });
-  }, [page]);
+    const timer = setTimeout(() => {
+      navigate(
+        `/courses?page=${page}&size=${size}&search=${
+          value === null ? "" : value
+        }`
+      );
+    }, 200);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value]);
+
+  useEffect(() => {
+    send({ page, size, search });
+  }, [page, search]);
 
   const table = {
     cools: [
@@ -49,7 +65,7 @@ const useCourses = () => {
     data: data,
   };
 
-  return { table, loading, error, send, pagination, data };
+  return { table, loading, error, send, pagination, data, setValue };
 };
 
 export default useCourses;

@@ -7,10 +7,15 @@ import Loader from "../../components/Loader";
 import useStudents from "../../hooks/use-students";
 
 function Students() {
-  const { send, error, loading, data, pagination, table } = useStudents();
+  const { send, error, loading, data, pagination, table, setValue } =
+    useStudents();
+  const changeHandler = (e) => {
+    setValue(e.target.value);
+  };
   return (
     <div>
       <Layout title="Students">
+        <input placeholder="search" onChange={changeHandler} type="text" />
         {loading && <Loader wait={loading} />}
         {!loading && error && toast.error(error.message)}
         {!error && !loading && data && (

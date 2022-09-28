@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./Pagination.module.css";
 
 function Pagination(props) {
-  const { totalPages, hasNextPage, isLastPage, page } = props.pagination;
+  const { allPagesCount, hasNextPage, isLastPage, page } = props.pagination;
   const url = props.url;
 
   return (
@@ -14,7 +14,6 @@ function Pagination(props) {
         className={`${styles.prev} ${!isLastPage ? styles.disabledTrue : ""}`}
       >
         <svg
-          enable-background="new 0 0 32 32"
           height="28px"
           id="Layer_1"
           version="1.1"
@@ -28,10 +27,8 @@ function Pagination(props) {
           <path d="M7.701,14.276l9.586-9.585c0.879-0.878,2.317-0.878,3.195,0l0.801,0.8c0.878,0.877,0.878,2.316,0,3.194  L13.968,16l7.315,7.315c0.878,0.878,0.878,2.317,0,3.194l-0.801,0.8c-0.878,0.879-2.316,0.879-3.195,0l-9.586-9.587  C7.229,17.252,7.02,16.62,7.054,16C7.02,15.38,7.229,14.748,7.701,14.276z" />
         </svg>
       </Link>
-
-      {totalPages &&
-        Array.from({ length: totalPages }).map((_, i) => {
-          const el = i + 1;
+      {allPagesCount &&
+        Array.from({ length: allPagesCount }).map((_, i) => {
           return (
             <Link
               disabled
@@ -40,9 +37,9 @@ function Pagination(props) {
               }`}
               to={`${url}?page=${i + 1}&size=3`}
               key={i + "xksxskj"}
-              style={page === el ? { pointerEvents: "none" } : null}
+              style={page === i + 1 ? { pointerEvents: "none" } : null}
             >
-              {el}
+              {i + 1}
             </Link>
           );
         })}
@@ -52,7 +49,6 @@ function Pagination(props) {
         className={`${styles.next} ${!hasNextPage ? styles.disabledTrue : ""}`}
       >
         <svg
-          enable-background="new 0 0 32 32"
           height="28px"
           id="Layer_1"
           version="1.1"
